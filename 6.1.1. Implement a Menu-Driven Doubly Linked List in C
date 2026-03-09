@@ -1,0 +1,70 @@
+#include <stdio.h>
+    struct Node* temp = head;
+	while(temp != NULL && temp->data != num){
+		temp = temp-> next;
+	}
+    if (temp == NULL){
+		printf("Number %d not found\n", num);
+		return;
+	
+}
+if (temp == head){
+	head = temp-> next;
+	if (head != NULL) head-> prev = NULL;
+} else {
+	if (temp-> next != NULL){
+		temp->next->prev = temp->prev;
+		
+	}
+	if(temp->prev != NULL){
+		temp->prev->next = temp-> next;
+	}
+}
+	free(temp);
+printf("List after deletion: ");
+display();
+}
+	
+// Function to reverse the list
+void reverseList() {
+	if(head == NULL){
+		printf("List is empty\n");
+		return;
+	}
+struct Node* temp = NULL;
+	struct Node* current = head;
+	while(current != NULL){
+		temp = current->prev;
+		current->prev = current->next;
+		current->next = temp;
+		head = current;
+		current = current->prev;
+	}
+	display();
+}
+
+// Function to concatenate another list
+void concatenate() {
+	int n, val;
+	scanf("%d", &n);
+	if(n<=0){
+		printf("Second list is empty");
+		return;
+	
+}
+struct Node *secHead = NULL, *secTail = NULL;
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &val);
+        struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+        if (secHead == NULL) {
+            secHead = secTail = newNode;
+        } else {
+            secTail->next = newNode;
+            newNode->prev = secTail;
+            secTail = newNode;
+        }
+    }
+
+    if (head == NULL) {
+        head = secHead;
+    } else {
